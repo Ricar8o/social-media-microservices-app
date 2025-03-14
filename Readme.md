@@ -8,3 +8,13 @@ Microservices have been created to manage posts, interact with them, and obtain 
 ## Design
 
 ![DB Design](/img/db_design.png)
+
+
+# Deploy
+
+```ssh
+    docker-compose up -d
+    cd backend/shared/prisma/
+    npx prisma migrate dev -- Generate migrations
+    npx prisma migrate deploy -- Execute migrations
+```
