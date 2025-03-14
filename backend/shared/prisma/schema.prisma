@@ -13,6 +13,7 @@ model User {
   username  String    @unique
   name      String?   @db.VarChar(250)
   passwordHash String @db.VarChar(250) @map("password_hash")
+  biography String?   @db.VarChar(250)
   posts     Post[]
   likes     Like[]
   @@map("users")
@@ -23,8 +24,8 @@ model Post {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   content   String    @db.VarChar(250)
-  author    User?     @relation(fields: [authorId], references: [id])
   authorId  Int?      @map("author_id")
+  author    User?     @relation(fields: [authorId], references: [id])
   likes     Like[]
   wasDeleted Boolean  @default(false) @map("was_deleted")
   @@map("posts")
