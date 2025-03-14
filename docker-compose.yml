@@ -7,3 +7,15 @@ services:
       POSTGRES_DB: social_db
     ports:
       - "5432:5432"
+
+  users_microservice:
+    build:
+      context: ./backend/
+      dockerfile: ./microservices/users-mc/Dockerfile
+    ports:
+      - "3001:3000"
+    environment:
+      DATABASE_URL: postgres://user:password@postgres:5432/social_db
+      SECRET_KEY: secret
+    depends_on:
+      - postgres
