@@ -66,6 +66,19 @@ paths:
         '404':
           description: User not found
 
+  /user/profile:
+    get:
+      tags:
+        - Users
+      summary: Get own profile
+      responses:
+        '200':
+          description: Profile retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
   /posts:
     get:
       tags:
