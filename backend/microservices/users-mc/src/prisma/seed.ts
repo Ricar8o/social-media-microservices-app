@@ -12,6 +12,7 @@ async function main() {
     create: {
       name: 'Alice',
       username: 'alice',
+      biography: 'I am a software engineer',
       passwordHash: hashedPassword,
       posts: {
         createMany: {
@@ -29,6 +30,7 @@ async function main() {
     create: {
       name: 'Bob',
       username: 'bob',
+      biography: 'I´m just Bob',
       passwordHash: hashedPassword,
       posts: {
         createMany: {
@@ -46,6 +48,7 @@ async function main() {
     create: {
       name: 'Charlie',
       username: 'charlie',
+      biography: 'I am Charlie, nice to meet you!',
       passwordHash: hashedPassword,
       posts: {
         create: {
