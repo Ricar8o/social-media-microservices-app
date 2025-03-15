@@ -77,6 +77,7 @@ npx prisma migrate deploy
 - Execute seeds
 ```bash
 cd backend/microservices/users-mc
+npm run build
 npm run prisma:seed # this should create some test users
 ```
 
