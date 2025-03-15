@@ -9,7 +9,7 @@ export async function likePost(req: Request, res: Response) {
     await postsService.getPost(postId);
     const customReq = req as CustomRequest;
     const userId = (customReq.decodedToken as any).id;
-    await likesService.likePost(userId, postId);
+    await likesService.likePost(postId, userId);
     res.status(200).send({
       message: 'Post liked successfully',
     });
