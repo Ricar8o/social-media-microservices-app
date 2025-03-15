@@ -102,6 +102,12 @@ paths:
       responses:
         '200':
           description: Post list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
     post:
       tags:
         - Posts
