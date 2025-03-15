@@ -14,7 +14,6 @@ export async function getPosts(
 ) {
   filters = cleanQueryFilters(filters);
   const { limit, offset, ...qryFilters  } = filters;
-  console.log(filters);
   const posts = await prisma.post.findMany({
     select: {
       id: true,
@@ -119,6 +118,44 @@ export async function deletePost(postId: number) {
   });
 }
 
+export async function getFeed(
+  userId: number,
+  filters: PostsQueryFilters = {},
+) {
+  filters = cleanQueryFilters(filters);
+  const { limit, offset } = filters;
+  const posts = await prisma.post.findMany({
+    select: {
+      id: true,
+      content: true,
+      createdAt: true,
+      author: {
+        select: {
+          id: true,
+          username: true,
+          name: true,
+        },
+      },
+      likes: true,
+      updatedAt: true,
+    },
+    where: {
+      wasDeleted: false,
+      authorId: {
+        not: userId,
+      },
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    take: limit,
+    skip: offset
+  });
+  return posts.map((post) => ({
+    ...post,
+    likes: post.likes.length,
+  }));
+}
 
 function cleanQueryFilters(filters: any) {
   const cleanedFilters: any = {};

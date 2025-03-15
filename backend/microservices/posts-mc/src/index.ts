@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import postsRoutes from "./routes/posts.routes";
+import feedRoutes from "./routes/feed.routes";
 import { authorizer } from "./middlewares/authorizer.middleware";
 
 dotenv.config();
@@ -9,6 +10,7 @@ const PORT = process.env.PORT ?? 3000;
 
 app.use(express.json());
 app.use('/posts', authorizer, postsRoutes);
+app.use('/feed', authorizer, feedRoutes);
 
 app.listen(PORT, () => {
   console.log("Server running at PORT: ", PORT);

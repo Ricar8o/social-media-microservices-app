@@ -63,3 +63,15 @@ export async function deletePost(req: Request, res: Response) {
     res.status(400).send({ message: 'Failed to delete post', error: error.message });
   }
 }
+
+export async function getFeed(req: Request, res: Response) {
+  try {
+    const customReq = req as CustomRequest;
+    const userId = (customReq.decodedToken as any).id;
+    const filters = req.query as PostsQueryFilters;
+    const posts = await postsService.getFeed(userId, filters);
+    res.status(200).send(posts);
+  } catch (error: any) {
+    res.status(400).send({ message: 'Failed to get feed', error: error.message });
+  }
+}
