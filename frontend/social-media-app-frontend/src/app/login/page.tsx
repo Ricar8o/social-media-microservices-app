@@ -3,13 +3,16 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { environment } from "../environments/environment"
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
-  const [email, setEmail] = useState("")
+  const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [message, setMessage] = useState("")
   const router = useRouter()
+  const LOGIN_ENDPOINT = `${environment.USERS_API}/auth/login`
+  const PROFILE_ENDPOINT = `${environment.USERS_API}/user/profile`
 
   const handleLogin = async (e: any) => {
     e.preventDefault()
@@ -17,12 +20,31 @@ export default function LoginPage() {
     setMessage("")
 
     try {
-      // Simulate API call
-      const response = await fetch("https://jsonplaceholder.typicode.com/users/1")
-      const user = await response.json()
+      const response = await fetch(LOGIN_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      })
+      if (!response.ok) {
+        throw new Error("Login failed")
+      }
 
-      // Store user in localStorage
-      localStorage.setItem("user", JSON.stringify(user))
+      const data = await response.json()
+      localStorage.setItem("credentials", JSON.stringify(data))
+
+      const profileResponse = await fetch(PROFILE_ENDPOINT, {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      })
+      if (!profileResponse.ok) {
+        throw new Error("Profile fetch failed")
+      }
+
+      const profileData = await profileResponse.json()
+      localStorage.setItem("userData", JSON.stringify(profileData))
 
       setMessage("Login successful!")
       setTimeout(() => {
@@ -45,13 +67,13 @@ export default function LoginPage() {
 
         <form onSubmit={handleLogin}>
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="username">Username</label>
             <input
-              id="email"
-              type="email"
-              placeholder="your.email@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              id="username"
+              type="username"
+              placeholder="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
