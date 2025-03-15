@@ -240,7 +240,7 @@ components:
       properties:
         id:
           type: integer
-        creator:
+        author:
           $ref: '#/components/schemas/User'
         content:
           type: string
