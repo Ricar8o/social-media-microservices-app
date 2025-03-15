@@ -71,7 +71,9 @@ export default function ProfilePage() {
 
           <div className="bio">
             <h3>Bio</h3>
-            <p className="biography-description">{user.biography}</p>
+            <p className="biography-description">
+              { user.biography || "No biography available" }
+            </p>
           </div>
         </div>
 
