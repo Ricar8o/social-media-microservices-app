@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { environment } from "../environments/environment"
 import moment from "moment"
+import CreatePost from "./CreatePost"
 
 interface IPost {
   id: number
@@ -113,6 +114,9 @@ export default function PostList() {
     }
   }
 
+  const handlePostCreated = (newPost: IPost) => {
+    setPosts([newPost, ...posts])
+  }
 
   const displayPosts = () => {
     if (posts.length === 0) {
@@ -121,10 +125,11 @@ export default function PostList() {
 
     return (
       <div className="posts-container">
+        <CreatePost onPostCreated={handlePostCreated} />
         {posts.map((post) => (
           <div className="post-card" key={post.id}>
             <div className="post-header">
-              <h3>{post.author.name}</h3>
+              <h3>{post.author?.name}</h3>
               <span>{moment(post.createdAt).format("MMMM Do YYYY, h:mm:ss a")}</span>
             </div>
             <div className="post-content">

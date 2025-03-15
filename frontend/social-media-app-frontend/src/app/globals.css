@@ -211,7 +211,7 @@ body {
   margin-bottom: 5px;
 }
 
-.quote .biography-description {
+.quote {
   font-style: italic;
 }
 
@@ -367,5 +367,47 @@ body {
     flex: 1;
     text-align: center;
   }
+}
+
+/* Estilos para el formulario de creación de posts */
+.create-post-container {
+  margin-bottom: 20px;
+}
+
+.create-post-form {
+  background-color: var(--background);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.create-post-form h2 {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* Mensaje de éxito/error */
+.message.error {
+  background-color: rgba(231, 76, 60, 0.1);
+  color: var(--danger-color);
+  border: 1px solid var(--danger-color);
 }
 
