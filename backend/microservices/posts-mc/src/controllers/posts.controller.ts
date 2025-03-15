@@ -26,3 +26,38 @@ export async function createPost(req: Request, res: Response) {
     res.status(400).send({ message: 'Failed to create post', error: error.message });
   }
 }
+
+export async function getPost(req: Request, res: Response) {
+  try {
+    const id = req.params.id;
+    const post = await postsService.getPost(+id);
+    res.status(200).send(post);
+  } catch (error: any) {
+    res.status(400).send({ message: 'Failed to get post', error: error.message });
+  }
+}
+
+export async function updatePost(req: Request, res: Response) {
+  try {
+    const id = req.params.id;
+    const { content } = req.body;
+
+    if (!content) {
+      throw new Error('Content is required');
+    }
+    const post = await postsService.updatePost(+id, content);
+    res.status(200).send(post);
+  } catch (error: any) {
+    res.status(400).send({ message: 'Failed to update post', error: error.message });
+  }
+}
+
+export async function deletePost(req: Request, res: Response) {
+  try {
+    const id = req.params.id;
+    await postsService.deletePost(+id);
+    res.status(204).send();
+  } catch (error: any) {
+    res.status(400).send({ message: 'Failed to delete post', error: error.message });
+  }
+}
