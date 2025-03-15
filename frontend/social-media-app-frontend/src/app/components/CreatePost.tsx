@@ -39,7 +39,7 @@ export default function CreatePost({ onPostCreated }: Readonly<{ onPostCreated: 
       })
 
       if (!response.ok) {
-        throw new Error("Error al crear el post")
+        throw new Error("Failed to create post")
       }
 
       const createdPost = await response.json()
@@ -55,7 +55,7 @@ export default function CreatePost({ onPostCreated }: Readonly<{ onPostCreated: 
       }, 2000)
     } catch (error) {
       console.error("Error:", error)
-      setMessage("Error al crear el post. Inténtalo de nuevo.")
+      setMessage("Error creating post, please try again")
     } finally {
       setIsSubmitting(false)
     }
