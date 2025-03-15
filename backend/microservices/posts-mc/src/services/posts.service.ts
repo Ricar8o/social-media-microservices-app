@@ -2,14 +2,19 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-class PostsQueryFilters {
+export class PostsQueryFilters {
   authorId?: number;
   id?: number;
+  limit?: number;
+  offset?: number;
 };
 
 export async function getPosts(
   filters: PostsQueryFilters = {},
 ) {
+  filters = cleanQueryFilters(filters);
+  const { limit, offset, ...qryFilters  } = filters;
+  console.log(filters);
   const posts = await prisma.post.findMany({
     select: {
       id: true,
@@ -26,12 +31,14 @@ export async function getPosts(
       updatedAt: true,
     },
     where: {
-      ...filters,
+      ...qryFilters,
       wasDeleted: false,
     },
     orderBy: {
       createdAt: 'desc',
     },
+    take: limit,
+    skip: offset
   });
   return posts.map((post) => ({
     ...post,
@@ -110,4 +117,21 @@ export async function deletePost(postId: number) {
       wasDeleted: true,
     },
   });
+}
+
+
+function cleanQueryFilters(filters: any) {
+  const cleanedFilters: any = {};
+  const validKeys = [
+    'authorId',
+    'id',
+    'limit',
+    'offset',
+  ];
+  for (const key in filters) {
+    if (validKeys.includes(key)) {
+      cleanedFilters[key] = +filters[key];
+    }
+  }
+  return cleanedFilters as PostsQueryFilters;
 }

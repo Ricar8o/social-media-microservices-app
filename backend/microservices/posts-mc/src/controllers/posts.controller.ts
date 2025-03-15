@@ -1,10 +1,12 @@
 import { Request, Response } from 'express';
 import * as postsService from '../services/posts.service';
 import { CustomRequest } from '../middlewares/authorizer.middleware';
+import { PostsQueryFilters } from '../services/posts.service';
 
 export async function getPosts(req: Request, res: Response) {
   try {
-    const posts = await postsService.getPosts();
+    const filters = req.query as PostsQueryFilters;
+    const posts = await postsService.getPosts(filters);
     res.status(200).send(posts);
   } catch (error: any) {
     res.status(400).send({ message: 'Failed to get posts', error: error.message });
