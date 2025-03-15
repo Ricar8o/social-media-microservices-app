@@ -10,31 +10,34 @@ Microservices have been created to manage posts, interact with them, and obtain 
 The microservices architecture consists of two primary types of services: User Services and Post Services. The endpoints are structured according to these two core functionalities, ensuring a clear separation of concerns and modularity.
 
 User Services (Authentication and Identity Management)
+-	These services handle user authentication, and users retrieval.
+-	The Auth Service is responsible for managing login requests and issuing JWT tokens for authentication.
+-	This service interacts with the PostgreSQL database to store and retrieve user credentials securely.
 
-These services handle user authentication, registration, and identity management.
-The Auth Service is responsible for registering users, managing login requests, and issuing JWT tokens for authentication.
-This service interacts with the PostgreSQL database to store and retrieve user credentials securely.
 Post Services (Content and Interaction Management)
+-	These services manage the creation, retrieval, and interaction with posts.
+-	The Posts Service handles fetching posts, ensuring users can browse available content.
+-	The Likes Service manages post interactions by allowing users to like and unlike posts.
+-	The Create Post Service enables users to submit new posts to the platform.
 
-These services manage the creation, retrieval, and interaction with posts.
-The Posts Service handles fetching posts, ensuring users can browse available content.
-The Likes Service manages post interactions by allowing users to like and unlike posts.
-The Create Post Service enables users to submit new posts to the platform.
 Separation of Concerns and Scalability
-Each microservice is independently deployable, ensuring that the system can scale efficiently based on usage patterns.
-Database interactions are handled through Prisma ORM, ensuring consistency across microservices.
-The API Gateway (or frontend in this case) communicates with these services based on user authentication status, ensuring secure access to different functionalities.
+-	Each microservice is independently deployable, ensuring that the system can scale efficiently based on usage patterns.
+-	Database interactions are handled through Prisma ORM, ensuring consistency across microservices.
+-	The API Gateway (or frontend in this case) communicates with these services based on user authentication status, ensuring secure access to different functionalities.
 
+Database design
 
--   Database design
+![DB Design](/img/db_design.png)
 
-    ![DB Design](/img/db_design.png)
+### Swagger Design
 
-- [Swagger design](/backend/docs/swagger.yml)
+[Swagger design](/backend/docs/swagger.yml)
 
-- [Users Management Microservice](/backend/microservices/users-mc/)
+## Microservices Folders
 
-- [Posts Management Microservice](/backend/microservices/posts-mc/)
+[Users Management Microservice](/backend/microservices/users-mc/)
+
+[Posts Management Microservice](/backend/microservices/posts-mc/)
 
 
 ## Run
