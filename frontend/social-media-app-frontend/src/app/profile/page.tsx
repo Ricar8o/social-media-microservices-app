@@ -33,7 +33,8 @@ export default function ProfilePage() {
   }, [router])
 
   const handleLogout = () => {
-    localStorage.removeItem("user")
+    localStorage.removeItem("userData")
+    localStorage.removeItem("credentials")
     setMessage("You have been logged out successfully")
     setTimeout(() => {
       router.push("/login")
