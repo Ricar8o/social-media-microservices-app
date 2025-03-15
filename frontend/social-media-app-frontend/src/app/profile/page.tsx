@@ -18,7 +18,7 @@ export default function ProfilePage() {
   const router = useRouter()
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user")
+    const storedUser = localStorage.getItem("userData")
 
     if (storedUser) {
       setUser(JSON.parse(storedUser))
@@ -70,7 +70,7 @@ export default function ProfilePage() {
 
           <div className="bio">
             <h3>Bio</h3>
-            <p className="biography-description">"{user.biography}"</p>
+            <p className="biography-description">{user.biography}</p>
           </div>
         </div>
 
