@@ -19,3 +19,15 @@ services:
       SECRET_KEY: secret
     depends_on:
       - postgres
+
+  posts_microservice:
+    build:
+      context: ./backend/
+      dockerfile: ./microservices/posts-mc/Dockerfile
+    ports:
+      - "3002:3000"
+    environment:
+      DATABASE_URL: postgres://user:password@postgres:5432/social_db
+      SECRET_KEY: secret
+    depends_on:
+      - postgres
