@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export async function getPosts() {
-  return prisma.post.findMany({
+  const posts = await prisma.post.findMany({
     select: {
       id: true,
       content: true,
@@ -15,8 +15,13 @@ export async function getPosts() {
           name: true,
         },
       },
+      likes: true,
     },
   });
+  return posts.map((post) => ({
+    ...post,
+    likes: post.likes.length,
+  }));
 }
 
 export async function createPost(content: string, authorId: number) {
