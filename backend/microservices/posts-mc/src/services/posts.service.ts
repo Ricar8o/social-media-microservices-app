@@ -10,6 +10,7 @@ export class PostsQueryFilters {
 };
 
 export async function getPosts(
+  userId: number,
   filters: PostsQueryFilters = {},
 ) {
   filters = cleanQueryFilters(filters);
@@ -42,6 +43,7 @@ export async function getPosts(
   return posts.map((post: any) => ({
     ...post,
     likes: post.likes.length,
+    liked: post.likes.some((like: any) => like.userId === userId),
   }));
 }
 
@@ -154,6 +156,7 @@ export async function getFeed(
   return posts.map((post: any) => ({
     ...post,
     likes: post.likes.length,
+    liked: post.likes.some((like: any) => like.userId === userId),
   }));
 }
 

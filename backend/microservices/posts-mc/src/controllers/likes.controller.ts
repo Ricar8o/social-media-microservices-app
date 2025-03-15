@@ -24,7 +24,7 @@ export async function unlikePost(req: Request, res: Response) {
     await postsService.getPost(postId);
     const customReq = req as CustomRequest;
     const userId = (customReq.decodedToken as any).id;
-    await likesService.unlikePost(userId, postId);
+    await likesService.unlikePost(postId, userId);
     res.status(200).send({
       message: 'Post unliked successfully',
     });
