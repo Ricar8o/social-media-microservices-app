@@ -10,7 +10,10 @@ COPY microservices/users-mc/tsconfig.json ./
 COPY prisma/migrations ./prisma/migrations
 COPY prisma/schema.prisma ./prisma/schema.prisma
 
-RUN npm install && npm run build && npx prisma generate
+RUN npm install
+RUN npm run build
+
+RUN npx prisma generate
 
 EXPOSE 3000
 
