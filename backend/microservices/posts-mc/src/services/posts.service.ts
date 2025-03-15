@@ -96,7 +96,6 @@ export async function getPost(
 }
 
 export async function updatePost(postId: number, content: string) {
-  await getPost(postId);
   return prisma.post.update({
     where: {
       id: postId,

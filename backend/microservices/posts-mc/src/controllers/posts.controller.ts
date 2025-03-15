@@ -25,7 +25,8 @@ export async function createPost(req: Request, res: Response) {
       throw new Error('Content is required');
     }
     const post = await postsService.createPost(content, userId);
-    res.status(201).send(post);
+    const postResponse = await postsService.getPost(post.id, userId);
+    res.status(201).send(postResponse);
   } catch (error: any) {
     res.status(400).send({ message: 'Failed to create post', error: error.message });
   }
@@ -45,14 +46,23 @@ export async function getPost(req: Request, res: Response) {
 
 export async function updatePost(req: Request, res: Response) {
   try {
+    const customReq = req as CustomRequest;
+    const userId = (customReq.decodedToken as any).id;
     const id = req.params.id;
     const { content } = req.body;
 
     if (!content) {
       throw new Error('Content is required');
     }
-    const post = await postsService.updatePost(+id, content);
-    res.status(200).send(post);
+    const post = await postsService.getPost(+id, userId);
+
+    if (post.author?.id !== userId) {
+      throw new Error('You are not allowed to update this post');
+    }
+
+    await postsService.updatePost(+id, content);
+    const updatedPost = await postsService.getPost(post.id, userId);
+    res.status(200).send(updatedPost);
   } catch (error: any) {
     res.status(400).send({ message: 'Failed to update post', error: error.message });
   }
