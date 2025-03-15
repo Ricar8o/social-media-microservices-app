@@ -54,9 +54,13 @@ npm run prisma:generate # copy common prisma schema to create prisma client
 npm run start # or npm run start:dev
 ```
 
-- Run using Docker
+- Run microservices using Docker
 ```bash
 docker-compose up -d --build # build the containers
+```
+
+- Run frontend
+```
 cd frontend/social-media-app-frontend
 npm install
 npm run build
