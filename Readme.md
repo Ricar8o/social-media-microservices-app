@@ -58,6 +58,8 @@ npm run start # or npm run start:dev
 ```bash
 docker-compose up -d --build # build the containers
 cd frontend/social-media-app-frontend
+npm install
+npm run build
 npm run start # or npm run dev
 # then go to http://localhost:3000 to check the web application
 ```
