@@ -14,9 +14,13 @@ async function main() {
       username: 'alice',
       passwordHash: hashedPassword,
       posts: {
-        create: {
-          content: 'Hello, World! This is my first post',
-        },
+        createMany: {
+          data: [
+            { content: 'Hello, World! This is my first post' },
+            { content: 'This is my second post' },
+            { content: 'This is my third post' },
+          ]
+        }
       },
     },
   });
@@ -28,9 +32,12 @@ async function main() {
       username: 'bob',
       passwordHash: hashedPassword,
       posts: {
-        create: {
-          content: 'This is my first post too!',
-        },
+        createMany: {
+          data: [
+            { content: 'Today is a great day!' },
+            { content: 'I am new here now!!!' },
+          ]
+        }
       },
     },
   });
