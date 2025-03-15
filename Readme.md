@@ -32,6 +32,10 @@ The API Gateway (or frontend in this case) communicates with these services base
 
 - [Swagger design](/backend/docs/swagger.yml)
 
+- [Users Management Microservice](/backend/microservices/users-mc/)
+
+- [Posts Management Microservice](/backend/microservices/posts-mc/)
+
 
 ## Run
 
