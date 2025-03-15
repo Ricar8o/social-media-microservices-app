@@ -18,7 +18,6 @@ export default function ProfilePage() {
   const router = useRouter()
 
   useEffect(() => {
-    // Check if user is logged in
     const storedUser = localStorage.getItem("user")
 
     if (storedUser) {
