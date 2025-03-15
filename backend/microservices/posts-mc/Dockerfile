@@ -3,9 +3,9 @@ FROM node:18
 
 WORKDIR /usr/src/app
 
-COPY microservices/users-mc/package*.json ./
-COPY microservices/users-mc/src ./src
-COPY microservices/users-mc/tsconfig.json ./
+COPY microservices/posts-mc/package*.json ./
+COPY microservices/posts-mc/src ./src
+COPY microservices/posts-mc/tsconfig.json ./
 
 COPY prisma/migrations ./prisma/migrations
 COPY prisma/schema.prisma ./prisma/schema.prisma
