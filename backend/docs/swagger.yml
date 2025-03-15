@@ -228,6 +228,9 @@ components:
         createdAt:
           type: string
           format: date
+        updatedAt:
+          type: string
+          format: date
 
     PostForm:
       type: object
