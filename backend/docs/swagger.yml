@@ -184,6 +184,21 @@ paths:
         '200':
           description: Like added successfully
 
+  /posts/{id}/unlike:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    post:
+      tags:
+        - Posts
+      summary: Unlike a post
+      responses:
+        '200':
+          description: Like removed successfully
+
   /feed:
     get:
       tags:
