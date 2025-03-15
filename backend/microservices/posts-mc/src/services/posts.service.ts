@@ -61,7 +61,10 @@ export async function createPost(content: string, authorId: number) {
   });
 }
 
-export async function getPost(postId: number) {
+export async function getPost(
+  postId: number,
+  userId: number = 0,
+) {
   const post = await prisma.post.findUnique({
     where: {
       id: postId,
@@ -88,6 +91,7 @@ export async function getPost(postId: number) {
   return {
     ...post,
     likes: post.likes.length,
+    liked: post.likes.some((like: any) => like.userId === userId),
   };
 }
 

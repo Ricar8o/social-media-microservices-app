@@ -34,7 +34,9 @@ export async function createPost(req: Request, res: Response) {
 export async function getPost(req: Request, res: Response) {
   try {
     const id = req.params.id;
-    const post = await postsService.getPost(+id);
+    const customReq = req as CustomRequest;
+    const userId = (customReq.decodedToken as any).id;
+    const post = await postsService.getPost(+id, userId);
     res.status(200).send(post);
   } catch (error: any) {
     res.status(400).send({ message: 'Failed to get post', error: error.message });
