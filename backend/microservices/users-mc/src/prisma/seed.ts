@@ -18,7 +18,6 @@ async function main() {
           data: [
             { content: 'Hello, World! This is my first post' },
             { content: 'This is my second post' },
-            { content: 'This is my third post' },
           ]
         }
       },
