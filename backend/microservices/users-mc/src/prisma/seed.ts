@@ -34,7 +34,36 @@ async function main() {
       },
     },
   });
-  console.log({ alice, bob })
+  const charlie = await prisma.user.upsert({
+    where: { username: 'charlie' },
+    update: {},
+    create: {
+      name: 'Charlie',
+      username: 'charlie',
+      passwordHash: hashedPassword,
+      posts: {
+        create: {
+          content: 'I am new here!',
+        },
+      },
+    },
+  });
+
+  const megan = await prisma.user.upsert({
+    where: { username: 'megan' },
+    update: {},
+    create: {
+      name: 'Megan',
+      username: 'megan',
+      passwordHash: hashedPassword,
+      posts: {
+        create: {
+          content: 'I am new here!',
+        },
+      },
+    },
+  });
+  console.log({ alice, bob, charlie, megan })
 }
 main()
   .then(async () => {
