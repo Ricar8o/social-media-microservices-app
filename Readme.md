@@ -62,6 +62,12 @@ npm run start # or npm run dev
 # then go to http://localhost:3000 to check the web application
 ```
 
+- Run migrations
+```bash
+cd backend/prisma # then check .env file
+npx prisma migrate deploy
+```
+
 - Execute seeds
 ```bash
 cd backend/microservices/users-mc
