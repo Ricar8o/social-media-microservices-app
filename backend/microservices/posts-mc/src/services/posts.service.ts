@@ -39,7 +39,7 @@ export async function getPosts(
     take: limit,
     skip: offset
   });
-  return posts.map((post) => ({
+  return posts.map((post: any) => ({
     ...post,
     likes: post.likes.length,
   }));
@@ -151,7 +151,7 @@ export async function getFeed(
     take: limit,
     skip: offset
   });
-  return posts.map((post) => ({
+  return posts.map((post: any) => ({
     ...post,
     likes: post.likes.length,
   }));
