@@ -43,7 +43,7 @@ export default function CreatePost({ onPostCreated }: Readonly<{ onPostCreated: 
       }
 
       const createdPost = await response.json()
-      setMessage("¡Post creado exitosamente!")
+      setMessage("¡Post created!")
 
       setContent("")
 
