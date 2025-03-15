@@ -15,6 +15,7 @@ interface IPost {
   }
   likes: number
   updatedAt: string
+  liked: boolean
 }
 
 export default function PostList() {
@@ -62,6 +63,22 @@ export default function PostList() {
     )
   }
 
+  const reloadPost = async (postId: number) => {
+    const updatedPost = await fetch(`${POSTS_API}/${postId}`, {
+      headers: {
+        Authorization: `Bearer ${credentials.token}`
+      }
+    })
+    const updatedPostData = await updatedPost.json()
+    const updatedPosts = posts.map((post) => {
+      if (post.id === postId) {
+        return updatedPostData
+      }
+      return post
+    })
+    setPosts(updatedPosts)
+  }
+
   const performLike = async (postId: number) => {
     try {
       const response = await fetch(`${POSTS_API}/${postId}/like`, {
@@ -73,21 +90,26 @@ export default function PostList() {
       if (!response.ok) {
         throw new Error("Failed to like post")
       }
-      const updatedPost = await fetch(`${POSTS_API}/${postId}`, {
+      reloadPost(postId)
+    } catch (error) {
+      console.error("Error liking post:", error)
+    }
+  }
+
+  const performUnlike = async (postId: number) => {
+    try {
+      const response = await fetch(`${POSTS_API}/${postId}/unlike`, {
+        method: "POST",
         headers: {
           Authorization: `Bearer ${credentials.token}`
         }
       })
-      const updatedPostData = await updatedPost.json()
-      const updatedPosts = posts.map((post) => {
-        if (post.id === postId) {
-          return updatedPostData
-        }
-        return post
-      })
-      setPosts(updatedPosts)
+      if (!response.ok) {
+        throw new Error("Failed to unlike post")
+      }
+      reloadPost(postId)
     } catch (error) {
-      console.error("Error liking post:", error)
+      console.error("Error unliking post:", error)
     }
   }
 
@@ -109,7 +131,15 @@ export default function PostList() {
               <p className="post-body">{post.content}</p>
             </div>
             <div className="post-footer">
-              <button type="button" className="post-action" onClick={() => performLike(post.id)}>
+              <button type="button" className="post-action" onClick={
+                () => {
+                  if (post.liked) {
+                    performUnlike(post.id)
+                  } else {
+                    performLike(post.id)
+                  }
+                }
+              }>
                 <span className="icon">♥</span>
                 {post.likes > 0 && <span className="likes-count">{post.likes}</span>}
               </button>
