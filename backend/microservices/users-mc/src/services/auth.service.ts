@@ -22,3 +22,7 @@ export async function loginUser(username: string, password: string) {
 function generateToken(userId: number) {
   return jwt.sign({ id: userId }, SECRET_KEY, { expiresIn: '24h' });
 };
+
+export function hashPassword(password: string) {
+  return bcrypt.hash(password, 10);
+}
