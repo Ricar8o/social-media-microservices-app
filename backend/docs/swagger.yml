@@ -87,7 +87,7 @@ paths:
         - Posts
       summary: Get posts
       parameters:
-        - name: user_id
+        - name: author_id
           in: query
           schema:
             type: integer
